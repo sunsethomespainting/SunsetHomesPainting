@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize gallery modals
     initGalleryModals();
 
-    // Contact / estimate forms (Web3Forms)
+    // Contact / estimate forms (FormSubmit)
     initSunsetForms();
 
     // Homepage hero image slideshow
@@ -311,7 +311,7 @@ function openImageModal(imageSrc, imageAlt, caption) {
     });
 }
 
-// Form Validation + Web3Forms submit
+// Form Validation + FormSubmit submit
 function initSunsetForms() {
     document.querySelectorAll('form.js-sunset-form').forEach(function (form) {
         form.addEventListener('submit', function (e) {
@@ -339,14 +339,9 @@ function initSunsetForms() {
 
 function getFormConfig() {
     return {
-        accessKey: (window.SUNSET_WEB3FORMS_ACCESS_KEY || '').trim(),
-        endpoint: window.SUNSET_WEB3FORMS_ENDPOINT || 'https://api.web3forms.com/submit',
+        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/sunsethomepainting@gmail.com',
         toEmail: window.SUNSET_FORM_TO_EMAIL || 'sunsethomepainting@gmail.com'
     };
-}
-
-function isPlaceholderAccessKey(key) {
-    return !key || /YOUR_ACCESS_KEY_HERE|REPLACE|TODO|changeme/i.test(key);
 }
 
 function validateSunsetForm(form) {
@@ -458,18 +453,6 @@ function submitSunsetForm(form) {
     }
 
     var cfg = getFormConfig();
-    if (isPlaceholderAccessKey(cfg.accessKey)) {
-        setFormStatus(
-            form,
-            'info',
-            '<strong>Almost ready.</strong> Forms are wired for Web3Forms, but the access key is still a placeholder. ' +
-            'Add your free key in <code>js/site-config.js</code> (<code>SUNSET_WEB3FORMS_ACCESS_KEY</code>) — see README — then redeploy. ' +
-            'Meanwhile you can call <a href="tel:3864053015">(386) 405-3015</a> or email ' +
-            '<a href="mailto:' + cfg.toEmail + '">' + cfg.toEmail + '</a>.'
-        );
-        return;
-    }
-
     var submitBtn = form.querySelector('[type="submit"]');
     var prevHtml = submitBtn ? submitBtn.innerHTML : '';
     if (submitBtn) {
@@ -478,11 +461,12 @@ function submitSunsetForm(form) {
     }
 
     var formData = new FormData(form);
-    formData.set('access_key', cfg.accessKey);
-    if (!formData.get('subject')) {
-        formData.set('subject', 'Sunset Home Painting website inquiry');
-    }
-    formData.set('from_name', 'Sunset Home Painting Website');
+    var subject = formData.get('subject') || formData.get('_subject') || 'Sunset Home Painting website inquiry';
+    formData.set('_subject', subject);
+    formData.delete('subject');
+    formData.set('_template', 'table');
+    formData.set('_captcha', 'false');
+    formData.set('_honey', honeypot ? honeypot.value : '');
 
     fetch(cfg.endpoint, {
         method: 'POST',
@@ -492,10 +476,14 @@ function submitSunsetForm(form) {
         .then(function (res) {
             return res.json().then(function (data) {
                 return { ok: res.ok, data: data };
+            }).catch(function () {
+                return { ok: res.ok, data: {} };
             });
         })
         .then(function (result) {
-            if (result.ok && result.data && result.data.success) {
+            var data = result.data || {};
+            var success = result.ok && (data.success === 'true' || data.success === true || data.message === 'Form submitted successfully' || !data.error);
+            if (success) {
                 setFormStatus(
                     form,
                     'success',
@@ -506,7 +494,7 @@ function submitSunsetForm(form) {
                     field.classList.remove('is-valid', 'is-invalid');
                 });
             } else {
-                var msg = (result.data && (result.data.message || result.data.error)) || 'Something went wrong. Please try again or call us.';
+                var msg = data.message || data.error || 'Something went wrong. Please try again or call us.';
                 setFormStatus(form, 'error', '<strong>Could not send.</strong> ' + msg);
             }
         })
