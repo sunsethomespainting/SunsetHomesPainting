@@ -1,6 +1,6 @@
 # Sunset Home Painting
 
-Static marketing site for Sunset Home Painting (St. Augustine / Northeast Florida).
+Static marketing site for Sunset Home Painting (Saint Augustine / Northeast Florida).
 
 - Live preview (Railway): https://web-production-52a02.up.railway.app
 - Canonical domain: **https://sunsethomespainting.com** (with the **s**)
@@ -8,13 +8,20 @@ Static marketing site for Sunset Home Painting (St. Augustine / Northeast Florid
 
 ## Contact / estimate forms
 
-Forms on `contact.html` and `schedule-appointment.html` submit through [FormSubmit](https://formsubmit.co) (free AJAX endpoint). No API key and no backend changes.
+Forms on `contact.html` and `schedule-appointment.html` submit through [FormSubmit](https://formsubmit.co) (AJAX).
 
 - Endpoint: `https://formsubmit.co/ajax/sunsethomepainting@gmail.com`
-- Payload includes `_subject`, form fields (name, email, phone, service_type, city_address, message), `_template=table`, `_captcha=false`
-- Honeypot field: `botcheck`
+- Required lead fields: name, phone, email, service address, city, job type, preferred visit window, short notes
+- Optional: photos, sq ft/rooms, how they heard about us
+- Lead only — thank-you copy does **not** invent a price; free on-site estimate after we visit
 
-**Activation (one-time):** The first real submission sends an activation email to `sunsethomepainting@gmail.com`. The inbox owner must click the FormSubmit confirmation link once before further leads arrive.
+**Activation (one-time):** First real submission emails `sunsethomepainting@gmail.com`. The inbox owner must click FormSubmit’s confirmation link once.
+
+## NAP
+
+- Phone: **(386) 405-3015**
+- Email: sunsethomepainting@gmail.com
+- Locality: Saint Augustine, FL 32084
 
 ## Local / Docker
 
@@ -23,7 +30,4 @@ docker build -t sunset-homes .
 docker run --rm -p 8080:80 sunset-homes
 ```
 
-## Notes
-
-- Phone NAP is unified to **(386) 405-3015**.
-- Brand display name remains “Sunset Home Painting”; website host is `sunsethomespainting.com`.
+`.dockerignore` excludes `.git`, `scripts/`, and markdown from the nginx image.

@@ -1,0 +1,15 @@
+.git
+.gitignore
+.nojekyll
+.dockerignore
+Dockerfile
+README.md
+*.md
+scripts
+scripts/
+**/*.py
+.DS_Store
+*.tar.gz
+*.bak
+.env
+.env.*
