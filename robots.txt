@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sunsethomepainting.com/sitemap.xml
-Sitemap: https://sunsethomepainting.com/sitemap.txt
+Sitemap: https://sunsethomespainting.com/sitemap.xml
+Sitemap: https://sunsethomespainting.com/sitemap.txt

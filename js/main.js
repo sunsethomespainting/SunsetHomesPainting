@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize gallery modals
     initGalleryModals();
 
-    // Initialize form validation
-    initFormValidation();
+    // Contact / estimate forms (Web3Forms)
+    initSunsetForms();
 
     // Homepage hero image slideshow
     initHomeHeroSlideshow();
@@ -142,7 +142,7 @@ function initStickyEstimateModal() {
 
 function openEstimateCallModal() {
     const pre = imagePathPrefix();
-    const phoneFormatted = '(904) 377-0528';
+    const phoneFormatted = '(386) 405-3015';
     const email = 'sunsethomepainting@gmail.com';
 
     const modalHTML =
@@ -311,129 +311,103 @@ function openImageModal(imageSrc, imageAlt, caption) {
     });
 }
 
-// Form Validation
-function initFormValidation() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+// Form Validation + Web3Forms submit
+function initSunsetForms() {
+    document.querySelectorAll('form.js-sunset-form').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            if (validateForm()) {
-                // Form is valid - in production, this would submit to server
-                showFormSuccess();
-                // Uncomment the line below to actually submit (when backend is ready)
-                // contactForm.submit();
-            }
+            submitSunsetForm(form);
         });
-        
-        // Real-time validation on blur
-        const formFields = contactForm.querySelectorAll('input, textarea');
-        formFields.forEach(field => {
-            field.addEventListener('blur', function() {
-                validateField(this);
+
+        form.querySelectorAll('input, textarea, select').forEach(function (field) {
+            field.addEventListener('blur', function () {
+                validateField(field);
             });
-            
-            field.addEventListener('input', function() {
-                // Clear error when user starts typing
-                if (this.classList.contains('is-invalid')) {
-                    clearFieldError(this);
+            field.addEventListener('input', function () {
+                if (field.classList.contains('is-invalid')) {
+                    clearFieldError(field);
+                }
+            });
+            field.addEventListener('change', function () {
+                if (field.classList.contains('is-invalid')) {
+                    clearFieldError(field);
                 }
             });
         });
-    }
+    });
 }
 
-function validateForm() {
-    const form = document.getElementById('contactForm');
-    let isValid = true;
-    
-    // Validate name
-    const nameField = form.querySelector('#name');
-    if (!validateField(nameField)) {
-        isValid = false;
-    }
-    
-    // Validate email
-    const emailField = form.querySelector('#email');
-    if (!validateField(emailField)) {
-        isValid = false;
-    }
-    
-    // Validate phone
-    const phoneField = form.querySelector('#phone');
-    if (!validateField(phoneField)) {
-        isValid = false;
-    }
-    
-    // Validate message
-    const messageField = form.querySelector('#message');
-    if (!validateField(messageField)) {
-        isValid = false;
-    }
-    
+function getFormConfig() {
+    return {
+        accessKey: (window.SUNSET_WEB3FORMS_ACCESS_KEY || '').trim(),
+        endpoint: window.SUNSET_WEB3FORMS_ENDPOINT || 'https://api.web3forms.com/submit',
+        toEmail: window.SUNSET_FORM_TO_EMAIL || 'sunsethomepainting@gmail.com'
+    };
+}
+
+function isPlaceholderAccessKey(key) {
+    return !key || /YOUR_ACCESS_KEY_HERE|REPLACE|TODO|changeme/i.test(key);
+}
+
+function validateSunsetForm(form) {
+    var isValid = true;
+    form.querySelectorAll('[required]').forEach(function (field) {
+        if (!validateField(field)) {
+            isValid = false;
+        }
+    });
     return isValid;
 }
 
 function validateField(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    let errorMessage = '';
-    
-    // Check if required field is empty
+    if (!field) return true;
+    var value = (field.value || '').trim();
+    var isValid = true;
+    var errorMessage = '';
+
     if (field.hasAttribute('required') && value === '') {
         isValid = false;
         errorMessage = 'This field is required.';
     }
-    
-    // Email validation
+
     if (field.type === 'email' && value !== '') {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
             isValid = false;
             errorMessage = 'Please enter a valid email address.';
         }
     }
-    
-    // Phone validation (basic - allows various formats)
+
     if (field.type === 'tel' && value !== '') {
-        const phoneRegex = /^[\d\s\-\(\)\+]+$/;
+        var phoneRegex = /^[\d\s\-\(\)\+]+$/;
         if (!phoneRegex.test(value) || value.replace(/\D/g, '').length < 10) {
             isValid = false;
             errorMessage = 'Please enter a valid phone number.';
         }
     }
-    
-    // Message length validation
-    if (field.tagName === 'TEXTAREA' && value !== '') {
-        if (value.length < 10) {
-            isValid = false;
-            errorMessage = 'Please enter a message with at least 10 characters.';
-        }
+
+    if (field.tagName === 'TEXTAREA' && value !== '' && value.length < 10) {
+        isValid = false;
+        errorMessage = 'Please enter a message with at least 10 characters.';
     }
-    
-    // Display error or clear it
+
     if (!isValid) {
         showFieldError(field, errorMessage);
     } else {
         clearFieldError(field);
     }
-    
     return isValid;
 }
 
 function showFieldError(field, message) {
     field.classList.add('is-invalid');
     field.classList.remove('is-valid');
-    
-    // Remove existing error message
-    const existingError = field.parentElement.querySelector('.invalid-feedback');
+    var existingError = field.parentElement.querySelector('.invalid-feedback');
     if (existingError) {
-        existingError.remove();
+        existingError.textContent = message;
+        return;
     }
-    
-    // Add error message
-    const errorDiv = document.createElement('div');
+    var errorDiv = document.createElement('div');
     errorDiv.className = 'invalid-feedback';
     errorDiv.textContent = message;
     field.parentElement.appendChild(errorDiv);
@@ -441,42 +415,122 @@ function showFieldError(field, message) {
 
 function clearFieldError(field) {
     field.classList.remove('is-invalid');
-    field.classList.add('is-valid');
-    
-    const errorDiv = field.parentElement.querySelector('.invalid-feedback');
-    if (errorDiv) {
+    if ((field.value || '').trim() !== '') {
+        field.classList.add('is-valid');
+    } else {
+        field.classList.remove('is-valid');
+    }
+    var errorDiv = field.parentElement.querySelector('.invalid-feedback');
+    if (errorDiv && !errorDiv.id) {
         errorDiv.remove();
+    } else if (errorDiv) {
+        errorDiv.textContent = '';
     }
 }
 
-function showFormSuccess() {
-    const form = document.getElementById('contactForm');
-    const successMessage = document.createElement('div');
-    successMessage.className = 'alert alert-success mt-3';
-    successMessage.setAttribute('role', 'alert');
-    successMessage.innerHTML = '<strong>Thank you!</strong> Your message has been sent. We will get back to you soon.';
-    
-    // Remove existing success message if any
-    const existingSuccess = form.querySelector('.alert-success');
-    if (existingSuccess) {
-        existingSuccess.remove();
+function setFormStatus(form, type, html) {
+    var status = form.querySelector('.js-form-status');
+    if (!status) {
+        status = document.createElement('div');
+        status.className = 'js-form-status mt-3';
+        status.setAttribute('role', 'status');
+        status.setAttribute('aria-live', 'polite');
+        form.appendChild(status);
     }
-    
-    form.appendChild(successMessage);
-    form.reset();
-    
-    // Remove validation classes
-    form.querySelectorAll('.is-valid, .is-invalid').forEach(field => {
-        field.classList.remove('is-valid', 'is-invalid');
+    status.className = 'js-form-status alert mt-3 alert-' + (type === 'success' ? 'success' : type === 'info' ? 'info' : 'danger');
+    status.innerHTML = html;
+    status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function submitSunsetForm(form) {
+    clearFormAlerts(form);
+
+    var honeypot = form.querySelector('[name="botcheck"]');
+    if (honeypot && honeypot.value) {
+        setFormStatus(form, 'success', '<strong>Thank you!</strong> Your message has been sent.');
+        form.reset();
+        return;
+    }
+
+    if (!validateSunsetForm(form)) {
+        setFormStatus(form, 'error', 'Please fix the highlighted fields and try again.');
+        return;
+    }
+
+    var cfg = getFormConfig();
+    if (isPlaceholderAccessKey(cfg.accessKey)) {
+        setFormStatus(
+            form,
+            'info',
+            '<strong>Almost ready.</strong> Forms are wired for Web3Forms, but the access key is still a placeholder. ' +
+            'Add your free key in <code>js/site-config.js</code> (<code>SUNSET_WEB3FORMS_ACCESS_KEY</code>) — see README — then redeploy. ' +
+            'Meanwhile you can call <a href="tel:3864053015">(386) 405-3015</a> or email ' +
+            '<a href="mailto:' + cfg.toEmail + '">' + cfg.toEmail + '</a>.'
+        );
+        return;
+    }
+
+    var submitBtn = form.querySelector('[type="submit"]');
+    var prevHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending…';
+    }
+
+    var formData = new FormData(form);
+    formData.set('access_key', cfg.accessKey);
+    if (!formData.get('subject')) {
+        formData.set('subject', 'Sunset Home Painting website inquiry');
+    }
+    formData.set('from_name', 'Sunset Home Painting Website');
+
+    fetch(cfg.endpoint, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' }
+    })
+        .then(function (res) {
+            return res.json().then(function (data) {
+                return { ok: res.ok, data: data };
+            });
+        })
+        .then(function (result) {
+            if (result.ok && result.data && result.data.success) {
+                setFormStatus(
+                    form,
+                    'success',
+                    '<strong>Thank you!</strong> Your message has been sent. We will get back to you soon.'
+                );
+                form.reset();
+                form.querySelectorAll('.is-valid, .is-invalid').forEach(function (field) {
+                    field.classList.remove('is-valid', 'is-invalid');
+                });
+            } else {
+                var msg = (result.data && (result.data.message || result.data.error)) || 'Something went wrong. Please try again or call us.';
+                setFormStatus(form, 'error', '<strong>Could not send.</strong> ' + msg);
+            }
+        })
+        .catch(function () {
+            setFormStatus(
+                form,
+                'error',
+                '<strong>Network error.</strong> Please check your connection, call <a href="tel:3864053015">(386) 405-3015</a>, or email us.'
+            );
+        })
+        .finally(function () {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = prevHtml;
+            }
+        });
+}
+
+function clearFormAlerts(form) {
+    form.querySelectorAll('.js-form-status, .alert-success, .alert-danger, .alert-info').forEach(function (el) {
+        if (el.classList.contains('js-form-status') || el.parentElement === form) {
+            el.remove();
+        }
     });
-    
-    // Scroll to success message
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
-    // Remove success message after 5 seconds
-    setTimeout(() => {
-        successMessage.remove();
-    }, 5000);
 }
 
 // Smooth scroll for anchor links (if needed)
