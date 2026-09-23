@@ -1,9 +1,17 @@
 /**
- * Site configuration — update your Google Analytics 4 Measurement ID here.
+ * Sunset Home Painting — site configuration
  *
- * 1. Go to https://analytics.google.com/
- * 2. Admin → Data Streams → select sunsethomepainting.com
- * 3. Copy the Measurement ID (format: G-XXXXXXXXXX)
- * 4. Paste it below and deploy
+ * Google Analytics 4
+ * 1. https://analytics.google.com/ → Admin → Data Streams → sunsethomespainting.com
+ * 2. Copy Measurement ID (G-XXXXXXXXXX) into SUNSET_GA_ID below
+ *
+ * Contact / estimate forms (FormSubmit — free, no API key)
+ * Endpoint posts to https://formsubmit.co/ajax/sunsethomepainting@gmail.com
+ * First submission triggers an activation email to that inbox — friend must click once.
  */
 window.SUNSET_GA_ID = 'G-CF667F9SM2';
+
+window.SUNSET_FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/sunsethomepainting@gmail.com';
+window.SUNSET_FORM_TO_EMAIL = 'sunsethomepainting@gmail.com';
+window.SUNSET_PHONE_DISPLAY = '(386) 405-3015';
+window.SUNSET_PHONE_TEL = '3864053015';
