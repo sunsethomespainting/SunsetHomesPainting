@@ -143,7 +143,7 @@ function initStickyEstimateModal() {
 function openEstimateCallModal() {
     const pre = imagePathPrefix();
     const phoneFormatted = '(386) 405-3015';
-    const email = 'sunsethomepainting@gmail.com';
+    const email = 'Office@teamnlwealthbuilders.com';
 
     const modalHTML =
         '<div class="modal fade estimate-call-modal" id="estimateCallModal" tabindex="-1" aria-labelledby="estimateCallModalLabel" aria-hidden="true">' +
