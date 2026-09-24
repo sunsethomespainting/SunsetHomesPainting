@@ -339,8 +339,8 @@ function initSunsetForms() {
 
 function getFormConfig() {
     return {
-        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/sunsethomepainting@gmail.com',
-        toEmail: window.SUNSET_FORM_TO_EMAIL || 'sunsethomepainting@gmail.com'
+        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/Office@teamnlwealthbuilders.com',
+        toEmail: window.SUNSET_FORM_TO_EMAIL || 'Office@teamnlwealthbuilders.com'
     };
 }
 
