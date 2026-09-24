@@ -461,12 +461,15 @@ function submitSunsetForm(form) {
     }
 
     var formData = new FormData(form);
-    var subject = formData.get('subject') || formData.get('_subject') || 'Sunset Home Painting website inquiry';
-    formData.set('_subject', subject);
+    if (!formData.get('_subject')) {
+        formData.set('_subject', formData.get('subject') || 'Sunset Home Painting — Book estimate lead');
+    }
     formData.delete('subject');
     formData.set('_template', 'table');
     formData.set('_captcha', 'false');
-    formData.set('_honey', honeypot ? honeypot.value : '');
+    // Lead-only flag for inbox sorting
+    formData.set('lead_type', 'estimate_request');
+    formData.set('quote_status', 'visit_required_no_online_quote');
 
     fetch(cfg.endpoint, {
         method: 'POST',
@@ -482,12 +485,12 @@ function submitSunsetForm(form) {
         })
         .then(function (result) {
             var data = result.data || {};
-            var success = result.ok && (data.success === 'true' || data.success === true || data.message === 'Form submitted successfully' || !data.error);
+            var success = result.ok && (data.success === true || data.success === 'true');
             if (success) {
                 setFormStatus(
                     form,
                     'success',
-                    '<strong>Thank you!</strong> Your message has been sent. We will get back to you soon.'
+                    '<strong>Thank you — your estimate request is in.</strong> This is a lead only (not an online quote). We will confirm a visit window, then we follow up with a free estimate after we see the job. Need us sooner? Call <a href="tel:3864053015">(386) 405-3015</a>.'
                 );
                 form.reset();
                 form.querySelectorAll('.is-valid, .is-invalid').forEach(function (field) {

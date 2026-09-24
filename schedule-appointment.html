@@ -10,11 +10,11 @@
     <meta property="og:title" content="Schedule a Free Estimate | Sunset Home Painting">
     <meta property="og:description" content="Book a free painting estimate online. Sunset Home Painting serves St. Augustine, Jacksonville, and Northeast Florida.">
     <meta property="og:image" content="https://sunsethomespainting.com/images/2.jpeg">
-    <link rel="icon" href="images/Sunset Home 2.PNG" type="image/png">
-    <link rel="apple-touch-icon" href="images/Sunset Home 2.PNG">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=20">
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"HousePainter","name":"Sunset Home Painting","url":"https://sunsethomespainting.com","telephone":"+1-386-405-3015","email":"sunsethomepainting@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Saint Augustine","addressRegion":"FL","postalCode":"32084","addressCountry":"US"}}
     </script>
@@ -27,10 +27,10 @@
       gtag('config', 'G-CF667F9SM2');
     </script>
 </head>
-<body class="inner-page">
+<body class="schedule-page inner-page">
     <!-- Navigation -->
     <div id="site-nav-mount"></div>
-    <script src="/js/site-nav.js?v=10" defer></script>
+    <script src="js/site-nav.js?v=20" defer></script>
 
         <!-- Schedule / Estimate Section -->
     <section class="page-section page-top-section" aria-labelledby="schedule-heading">
@@ -42,67 +42,84 @@
             </p>
 
             <div class="row g-4 align-items-start">
-                <div class="col-lg-6">
+                <div class="col-lg-8 mx-auto">
                     <div class="contact-form estimate-form-card">
                         <h2 class="h3 mb-4" style="color: var(--sunset-orange);">Request an estimate</h2>
-                        <form id="estimateForm" class="js-sunset-form" action="https://formsubmit.co/ajax/sunsethomepainting@gmail.com" method="POST" novalidate>
-                            <input type="hidden" name="subject" value="Sunset Home Painting — Estimate request">
+                                                <form id="estimateForm" class="js-sunset-form lead-form" action="https://formsubmit.co/ajax/sunsethomepainting@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
+                            <input type="hidden" name="_subject" value="Sunset Home Painting — Schedule estimate lead">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_honey" value="">
                             <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-                            <div class="mb-3">
-                                <label for="est_name" class="form-label">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="est_name" name="name" required aria-required="true" autocomplete="name">
-                                <div class="invalid-feedback"></div>
+                            <p class="lead-form-intro">Request a free on-site estimate. This submits a lead only — pricing comes only after an on-site visit (free estimate).</p>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="est_name" class="form-label">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="est_name" name="name" required aria-required="true" autocomplete="name">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="est_phone" name="phone" required aria-required="true" autocomplete="tel" inputmode="tel">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_email" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="est_email" name="email" required aria-required="true" autocomplete="email">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_job_type" class="form-label">Job type <span class="text-danger">*</span></label>
+                                    <select class="form-select form-control" id="est_job_type" name="job_type" required aria-required="true">
+                                        <option value="" selected disabled>Select one</option>
+                                        <option value="interior">Interior</option>
+                                        <option value="exterior">Exterior</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="est_service_address" class="form-label">Service address <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="est_service_address" name="service_address" required aria-required="true" autocomplete="street-address" placeholder="Street address of the job">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_city" class="form-label">City <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="est_city" name="city" required aria-required="true" autocomplete="address-level2" placeholder="St. Augustine">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_preferred_visit_window" class="form-label">Preferred visit window <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="est_preferred_visit_window" name="preferred_visit_window" required aria-required="true" placeholder="ASAP, or e.g. Mon–Wed mornings">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="est_notes" class="form-label">Short notes <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="est_notes" name="notes" rows="4" required aria-required="true" placeholder="What needs painting? Timing constraints? Gate codes?"></textarea>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_sqft_rooms" class="form-label">Sq ft / rooms <span class="text-muted fw-normal">(optional)</span></label>
+                                    <input type="text" class="form-control" id="est_sqft_rooms" name="sqft_rooms" placeholder="e.g. 3 bedrooms, ~1,800 sq ft">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="est_heard_about" class="form-label">How did you hear about us? <span class="text-muted fw-normal">(optional)</span></label>
+                                    <input type="text" class="form-control" id="est_heard_about" name="heard_about" placeholder="Neighbor, Google, Facebook…">
+                                </div>
+                                <div class="col-12">
+                                    <label for="est_photos" class="form-label">Photos <span class="text-muted fw-normal">(optional)</span></label>
+                                    <input type="file" class="form-control" id="est_photos" name="attachment" accept="image/*" multiple>
+                                    <div class="form-text">You can attach photos now, or paste a link in notes.</div>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="est_phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control" id="est_phone" name="phone" required aria-required="true" autocomplete="tel" inputmode="tel">
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="est_email" class="form-label">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="est_email" name="email" required aria-required="true" autocomplete="email">
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="est_service_type" class="form-label">Service type <span class="text-danger">*</span></label>
-                                <select class="form-select form-control" id="est_service_type" name="service_type" required aria-required="true">
-                                    <option value="" selected disabled>Select one</option>
-                                    <option value="Interior">Interior</option>
-                                    <option value="Exterior">Exterior</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="est_city_address" class="form-label">City / address <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="est_city_address" name="city_address" required aria-required="true" autocomplete="street-address" placeholder="St. Augustine, neighborhood, or street">
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="est_message" class="form-label">Project details <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="est_message" name="message" rows="5" required aria-required="true" placeholder="Rooms or exterior surfaces, preferred timing, and anything else we should know."></textarea>
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                            <button type="submit" class="btn-submit">
-                                <i class="fas fa-calendar-check me-2"></i>Request Free Estimate
+                            <button type="submit" class="btn-submit mt-4">
+                                <i class="fas fa-calendar-check me-2"></i>Book free estimate
                             </button>
+                            <p class="form-footnote mt-3 mb-0">Lead only — no online quote. After we visit, we follow up with a free estimate. Prefer to talk now? Call <a href="tel:3864053015">(386) 405-3015</a>.</p>
                         </form>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="calendly-section">
-                        <h2 class="h3 mb-3 text-center">Or pick a time on the calendar</h2>
-                        <p class="text-center text-muted mb-4">If you already know when you are free, book a slot below.</p>
-                        <div class="calendly-inline-widget" data-url="https://calendly.com/alexanderlmiller500/30min" style="min-width:320px;height:700px;"></div>
-                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
                     </div>
                 </div>
             </div>
@@ -149,13 +166,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
-    <script src="js/site-config.js?v=16"></script>
-    <script src="js/main.js?v=16"></script>
+    <script src="js/site-config.js?v=20"></script>
+    <script src="js/main.js?v=20"></script>
     
     <!-- Sticky CTA Button -->
-    <a href="schedule-appointment.html" class="sticky-cta-button" aria-label="Schedule Appointment Now">
-        <i class="fas fa-calendar-check"></i>
-        <span>Schedule Appointment Now</span>
-    </a>
 </body>
 </html>
