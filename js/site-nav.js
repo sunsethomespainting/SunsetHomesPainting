@@ -1,5 +1,5 @@
 /**
- * Shared site header — call bar + navigation (v20). Dual CTAs.
+ * Shared site header — call bar + navigation (v21). Dual CTAs.
  * Tabs: Home, About, Services, Gallery, Blog, Schedule, Contact
  */
 (function () {
@@ -67,7 +67,7 @@
             '<nav class="navbar navbar-expand-lg navbar-dark" id="site-navbar">' +
             '<div class="container">' +
             '<a class="navbar-brand" href="' + pre + 'index.html" aria-label="Sunset Home Painting Home">' +
-            '<img src="' + pre + 'images/logo.png" alt="Sunset Home Painting" class="logo-img">' +
+            '<img src="' + pre + 'images/logo.png" alt="Sunset Home Painting logo" class="logo-img site-logo" width="80" height="80">' +
             '<span>Sunset Home Painting</span></a>' +
             '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNavbarCollapse" ' +
             'aria-controls="siteNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">' +
