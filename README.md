@@ -10,12 +10,12 @@ Static marketing site for Sunset Home Painting (Saint Augustine / Northeast Flor
 
 Forms on `contact.html` and `schedule-appointment.html` submit through [FormSubmit](https://formsubmit.co) (AJAX).
 
-- Endpoint: `https://formsubmit.co/ajax/sunsethomepainting@gmail.com`
+- Endpoint: `https://formsubmit.co/ajax/Office@teamnlwealthbuilders.com`
 - Required lead fields: name, phone, email, service address, city, job type, preferred visit window, short notes
 - Optional: photos, sq ft/rooms, how they heard about us
 - Lead only — thank-you copy does **not** invent a price; free on-site estimate after we visit
 
-**Activation (one-time):** First real submission emails `sunsethomepainting@gmail.com`. The inbox owner must click FormSubmit’s confirmation link once.
+**Activation (one-time):** First real submission emails `Office@teamnlwealthbuilders.com`. The inbox owner must click FormSubmit’s confirmation link once.
 
 ## NAP
 
