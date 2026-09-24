@@ -143,7 +143,7 @@ function initStickyEstimateModal() {
 function openEstimateCallModal() {
     const pre = imagePathPrefix();
     const phoneFormatted = '(386) 405-3015';
-    const email = 'Office@teamnlwealthbuilders.com';
+    const email = 'goode434@gmail.com';
 
     const modalHTML =
         '<div class="modal fade estimate-call-modal" id="estimateCallModal" tabindex="-1" aria-labelledby="estimateCallModalLabel" aria-hidden="true">' +
@@ -339,8 +339,8 @@ function initSunsetForms() {
 
 function getFormConfig() {
     return {
-        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/Office@teamnlwealthbuilders.com',
-        toEmail: window.SUNSET_FORM_TO_EMAIL || 'Office@teamnlwealthbuilders.com'
+        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/goode434@gmail.com',
+        toEmail: window.SUNSET_FORM_TO_EMAIL || 'goode434@gmail.com'
     };
 }
 
