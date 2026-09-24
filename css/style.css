@@ -72,36 +72,62 @@ h5 {
     gap: 0.75rem;
 }
 
-.navbar-brand img {
-    height: 50px;
+.navbar-brand img,
+.navbar-brand .logo-img,
+.navbar-brand .site-logo {
+    height: 70px;
     width: auto;
-    max-width: 200px;
+    max-width: 280px;
     object-fit: contain;
+    display: block;
+    flex-shrink: 0;
 }
 
-.navbar-brand .logo-img {
-    display: block;
+/* Homepage: slightly larger logo next to wordmark */
+.home-page .navbar-brand img,
+.home-page .navbar-brand .logo-img,
+.home-page .navbar-brand .site-logo {
+    height: 80px;
+    max-width: 300px;
 }
 
 @media (max-width: 768px) {
-    .navbar-brand img {
-        height: 40px;
-        max-width: 150px;
+    .navbar-brand img,
+    .navbar-brand .logo-img,
+    .navbar-brand .site-logo {
+        height: 52px;
+        max-width: 180px;
+    }
+
+    .home-page .navbar-brand img,
+    .home-page .navbar-brand .logo-img,
+    .home-page .navbar-brand .site-logo {
+        height: 56px;
+        max-width: 200px;
     }
 
     .navbar-brand span {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
 }
 
 @media (max-width: 576px) {
-    .navbar-brand img {
-        height: 35px;
-        max-width: 120px;
+    .navbar-brand img,
+    .navbar-brand .logo-img,
+    .navbar-brand .site-logo {
+        height: 44px;
+        max-width: 140px;
+    }
+
+    .home-page .navbar-brand img,
+    .home-page .navbar-brand .logo-img,
+    .home-page .navbar-brand .site-logo {
+        height: 48px;
+        max-width: 150px;
     }
 
     .navbar-brand span {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 }
 
@@ -1636,7 +1662,7 @@ a.sticky-cta-button {
     .site-call-banner { padding: 0.35rem 0.5rem; }
     .site-call-banner__link { font-size: 1.1rem; }
     .navbar-brand span { font-size: 0.95rem; }
-    .navbar-brand img, .navbar-brand .logo-img { height: 32px; max-width: 110px; }
+    .navbar-brand img, .navbar-brand .logo-img, .navbar-brand .site-logo { height: 44px; max-width: 140px; }
 }
 
 /* Brand hero with imagery + in-flow CTAs */
