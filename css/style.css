@@ -1689,7 +1689,20 @@ a.sticky-cta-button {
 .hero-lead {
     color: rgba(255,255,255,0.92);
     font-size: 1.08rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
+    max-width: 34rem;
+}
+.hero-seasonal {
+    color: rgba(255,255,255,0.95);
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem;
+    max-width: 34rem;
+}
+.hero-cta-note {
+    color: rgba(255,255,255,0.88);
+    font-size: 0.95rem;
+    margin: -0.75rem 0 1.5rem;
     max-width: 34rem;
 }
 .hero-cta-row {
