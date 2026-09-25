@@ -339,7 +339,7 @@ function initSunsetForms() {
 
 function getFormConfig() {
     return {
-        endpoint: window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://formsubmit.co/ajax/Office@teamnlwealthbuilders.com',
+        endpoint: window.SUNSET_FORM_ENDPOINT || window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://sutrena.com/api/forms/fbcc74ec-9166-4430-b93c-991623cb6a50/submit',
         toEmail: window.SUNSET_FORM_TO_EMAIL || 'Office@teamnlwealthbuilders.com'
     };
 }
@@ -471,10 +471,25 @@ function submitSunsetForm(form) {
     formData.set('lead_type', 'estimate_request');
     formData.set('quote_status', 'visit_required_no_online_quote');
 
+    var payload = {};
+    formData.forEach(function (value, key) {
+        if (key === 'botcheck') return;
+        payload[key] = value;
+    });
+    if (!payload._subject && !payload.subject) {
+        payload.subject = 'Sunset Home Painting — Book estimate lead';
+    }
+    if (payload._subject && !payload.subject) {
+        payload.subject = payload._subject;
+    }
+    delete payload._subject;
+    delete payload._template;
+    delete payload._captcha;
+
     fetch(cfg.endpoint, {
         method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
+        body: JSON.stringify(payload),
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
     })
         .then(function (res) {
             return res.json().then(function (data) {
@@ -485,7 +500,7 @@ function submitSunsetForm(form) {
         })
         .then(function (result) {
             var data = result.data || {};
-            var success = result.ok && (data.success === true || data.success === 'true');
+            var success = result.ok && (data.success === true || data.success === 'true' || !!data.id);
             if (success) {
                 setFormStatus(
                     form,
