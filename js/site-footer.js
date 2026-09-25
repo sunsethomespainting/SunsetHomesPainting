@@ -35,7 +35,7 @@
             '<div class="footer-section">' +
             '<h4>Contact</h4>' +
             '<p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:3864053015">(386) 405-3015</a></p>' +
-            '<p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:goode434@gmail.com">goode434@gmail.com</a></p>' +
+            '<p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:Office@teamnlwealthbuilders.com">Office@teamnlwealthbuilders.com</a></p>' +
             '<p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Saint Augustine, FL 32084</p>' +
             '</div>' +
             '<div class="footer-section">' +
