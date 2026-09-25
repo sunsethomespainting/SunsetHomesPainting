@@ -339,7 +339,7 @@ function initSunsetForms() {
 
 function getFormConfig() {
     return {
-        endpoint: window.SUNSET_FORM_ENDPOINT || window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://sutrena.com/api/forms/fbcc74ec-9166-4430-b93c-991623cb6a50/submit',
+        endpoint: window.SUNSET_FORM_ENDPOINT || window.SUNSET_FORMSUBMIT_ENDPOINT || 'https://sutrena.com/api/forms/33ab04f4-aed5-4789-b02c-b8558cc250cf/submit',
         toEmail: window.SUNSET_FORM_TO_EMAIL || 'Office@teamnlwealthbuilders.com'
     };
 }
